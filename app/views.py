@@ -48,11 +48,12 @@ def insert_accessrecord(request):
     d={'webpage':QLWO}
 
     if request.method=="POST":
+        pk=request.POST['pk']
         n=request.POST['n']
         d=request.POST['d']
         au=request.POST['au']
 
-        WO=WebPage.objects.get(pk=n)
+        WO=WebPage.objects.get(pk=pk)
         AO=AccessRecord.objects.get_or_create(name=WO,date=d,author=au)[0]
         AO.save()
 
@@ -77,5 +78,12 @@ def select_multiple_webpage(request):
         d1={'webpage':QLWO}
         return render(request,'display_webpage.html',d1) 
     return render(request,'select_multiple_webpage.html',d)
+
+
+def checkbox(request):
+    QLTO=Topic.objects.all()
+    d={'topics':QLTO}
+
+    return render(request,'checkbox.html',d)
     
 
